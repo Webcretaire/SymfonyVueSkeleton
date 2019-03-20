@@ -1,0 +1,19 @@
+language: php
+
+php:
+  - '7.2'
+
+env:
+  global:
+    - APP_ENV=test
+    - APP_DEBUG=true
+
+before_install:
+  - composer self-update
+
+install:
+  - composer install --prefer-source
+
+script:
+  - make lint_yaml
+  - make lint_twig

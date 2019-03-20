@@ -1,0 +1,13 @@
+controllers:
+    resource: ../src/Controller/
+    type: annotation
+    prefix: /api
+    options:
+        expose: true
+
+front:
+    path: /{req}
+    defaults:
+        _controller: App\Controller\FrontController::serve
+    requirements:
+        req: ".*"

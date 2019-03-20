@@ -1,0 +1,54 @@
+# =======
+# Project
+# =======
+
+# /vagrant is a shared directory created by vagrant by default, with your project in it
+project_dir: /var/project
+# Name of the database
+mysql_db: db_name
+# Password for root user (by default = database name)
+mysql_passwd: "{{ mysql_db }}"
+# Domain to add to your host file to get to your website
+server_domain: project.dom
+# If you don't want to import an SQL script, simply remove/comment this variable
+import_sql_database: "{{ project_dir }}/ansible/dump.sql"
+
+# =====
+# Nginx
+# =====
+
+nginx_cleanup_config: true
+nginx_http_template_enable:
+    default:
+        template_file: nginx.conf.j2
+        conf_file_name: default.conf
+        conf_file_location: /etc/nginx/conf.d/
+
+# ===
+# PHP
+# ===
+
+php_default_version_debian: "7.2"
+php_memory_limit: "-1"
+php_max_execution_time: "3600"
+php_upload_max_filesize: "512M"
+php_enable_php_fpm: true
+php_fpm_listen: "127.0.0.1:9000"
+php_fpm_listen_allowed_clients: "127.0.0.1"
+php_packages_extra:
+    - php-mysql
+    - php-zip
+    - php-mbstring
+    - php-xml
+    - php-curl
+    - php-fpm
+
+# =====
+# MySQL
+# =====
+
+mysql_root_password: "{{ mysql_passwd }}"
+mysql_databases:
+    - name: "{{ mysql_db }}"
+      encoding: utf8
+      collation: utf8_general_ci
